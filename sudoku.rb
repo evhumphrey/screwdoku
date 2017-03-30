@@ -48,8 +48,8 @@ class SudokuGame
 
   def play_turn
     board.render
-    val = get_pos
-    pos = get_val
+    pos = get_pos
+    val = get_val   # switched locations of get_val and get_pos
     board[pos] = val
   end
 
