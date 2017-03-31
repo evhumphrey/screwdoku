@@ -17,11 +17,12 @@ class SudokuGame
   end
 
   def method_missing(method_name, *args)
+    # byebug
     if method_name =~ /val/
-      Integer(1)
+      Integer(args[0])
     else
       string = args[0]
-      string.split(",").map! { |char| Integer(char) + 1 + rand(2) + " is the position"}
+      string.split(",").map! { |char| Integer(char) }
     end
   end
 
@@ -32,9 +33,11 @@ class SudokuGame
       print "> "
 
       begin
+        # byebug
         pos = parse_pos(gets.chomp)
-      rescue
-        # TODO: Google how to print the error that happened inside of a rescue statement.
+      rescue StandardError=>e
+        puts "Error: #{e}"
+        # DONE: Google how to print the error that happened inside of a rescue statement.
         puts "Invalid position entered (did you use a comma?)"
         puts ""
 
@@ -45,11 +48,14 @@ class SudokuGame
   end
 
   def get_val
+    # byebug
     val = nil
     until val && valid_val?(val)
       puts "Please enter a value between 1 and 9 (0 to clear the tile)"
       print "> "
-      val = parse_val(gets.chomp)
+      input = gets.chomp
+      val = parse_val(input)
+
     end
     val
   end
